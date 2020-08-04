@@ -99,11 +99,11 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
   "current_category": null,
   "questions": [
     {
-      "answer": "Apollo 13",
-      "category": 5,
-      "difficulty": 4,
-      "id": 2,
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+      "answer": "<answer>",
+      "category": "<category id>",
+      "difficulty": "<difficulty level>",
+      "id": "<question id>",
+      "question": "<question>"
     },
     ... etc
   ],
@@ -121,7 +121,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 
 ```json
 {
-  "deleted": <question_id>,
+  "deleted": "<question_id>",
   "success": true
 }
 ```
@@ -131,10 +131,10 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 - *Request body* : 
 ```json
 {
-    "question": <Question>,
-    "answer": <Answer>,
-    "category": <Category Id>,
-    "difficulty": <difficulty level>
+    "question": "<Question>",
+    "answer": "<Answer>",
+    "category": "<Category Id>",
+    "difficulty": "<difficulty level>"
 }
 ```
 - *Returns* : An object with 
@@ -143,7 +143,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 
 ```json
 {
-  "created": <question_id>,
+  "created": "<question_id>",
   "success": true
 }
 ```
@@ -153,7 +153,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 - *Request body* : 
 ```json
 {
-    "searchTerm": <search term>
+    "searchTerm": "<search term>"
 }
 ```
 - *Returns* : An object with 
@@ -167,11 +167,11 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
   "current_category": null,
   "questions": [
     {
-      "answer": "New Answer2",
-      "category": 2,
-      "difficulty": 2,
-      "id": 29,
-      "question": "New Question3 ?"
+      "answer": "<answer>",
+      "category": "<category id>",
+      "difficulty": "<difficulty level>",
+      "id": "<question id>",
+      "question": "<question>"
     }
   ],
   "success": true,
@@ -190,14 +190,14 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 
 ```json
 {
-  "current_category": <category_id>,
+  "current_category": "<category_id>",
   "questions": [
     {
-      "answer": "Escher",
-      "category": 2,
-      "difficulty": 1,
-      "id": 16,
-      "question": "Which Dutch graphic artist–initials M C was a creator of optical illusions?"
+      "answer": "<answer>",
+      "category": "<category id>",
+      "difficulty": "<difficulty level>",
+      "id": "<question id>",
+      "question": "<question>"
     },
     ...etc
   ],
@@ -211,8 +211,8 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 ```json
 {
     "quiz_category": {
-        "id": <category id>,
-        "type":<category type>
+        "id": "<category id>",
+        "type": "<category type>"
     },
     "previous_questions":[20,21]
 }
@@ -224,12 +224,12 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 ```json
 {
   "question": {
-    "answer": "Blood",
-    "category": 1,
-    "difficulty": 4,
-    "id": 22,
-    "question": "Hematology is a branch of medicine involving the study of what?"
-  },
+      "answer": "<answer>",
+      "category": "<category id>",
+      "difficulty": "<difficulty level>",
+      "id": "<question id>",
+      "question": "<question>"
+    },
   "success": true
 }
 ```
