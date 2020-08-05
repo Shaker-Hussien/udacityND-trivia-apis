@@ -84,6 +84,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
     - success : [True/Flase] if false the error code and message will be provided
     - questions : questions retrieved for the required page
     - categories : contains a object of id: category_string key:value pairs.
+    - current_category : unique list of categories for questions in retrieved page
     - total_questions : total number of questions retrieved
 
 ```json
@@ -96,7 +97,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
     "5": "Entertainment",
     "6": "Sports"
   },
-  "current_category": null,
+  "current_category": [3,4,5],
   "questions": [
     {
       "answer": "<answer>",
