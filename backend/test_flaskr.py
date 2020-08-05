@@ -28,7 +28,7 @@ class TriviaTestCase(unittest.TestCase):
         self.new_question_02 = {
             'question': 'test question 02 ?',
             'answer': 'test answer 02',
-            'category': 1,
+            'category': 2,
             'difficulty': 1}
         # binds the app to the current context
         with self.app.app_context():
@@ -69,13 +69,13 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'resource not found')
 
     def test_delete_question(self):
-        res = self.client().delete('/questions/23')
+        res = self.client().delete('/questions/15')
         data = json.loads(res.data)
-        question = Question.query.filter(Question.id == 23).one_or_none()
+        question = Question.query.filter(Question.id == 15).one_or_none()
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], 23)
+        self.assertEqual(data['deleted'], 15)
         self.assertEqual(question, None)
 
     def test_delete_question_not_exist(self):
@@ -201,10 +201,10 @@ class TriviaTestCase(unittest.TestCase):
         res = self.client().post('/quizzes',
                                  json={
                                      "quiz_category": {
-                                         "id": 1,
-                                         "type": "blabla"
+                                         "id": 6,
+                                         "type": "Sports"
                                      },
-                                     "previous_questions": [20, 21, 22,27]
+                                     "previous_questions": [10,11]
                                  })
         data = json.loads(res.data)
 
