@@ -26,24 +26,11 @@ def create_app(test_config=None):
     setup_db(app)
 
     CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-    # CORS(app)
-
-
-    # CORS Headers
-    # @app.after_request
-    # def after_request(response):
-    #     response.headers.add('Access-Control-Allow-Origin', '*')
-    #     response.headers.add('Access-Control-Allow-Credentials',
-    #                          'true')
-    #     response.headers.add('Access-Control-Allow-Headers',
-    #                          'Content-Type,Authorization,true')
-    #     response.headers.add('Access-Control-Allow-Methods',
-    #                          'GET,PUT,POST,DELETE,OPTIONS')
-    #     return response
 
     @app.route('/categories')
     def retrieve_categories():
-        all_categories = {category.id: category.type for category in Category.query.order_by(Category.id).all()}
+        all_categories = {
+            category.id: category.type for category in Category.query.order_by(Category.id).all()}
 
         if len(all_categories) == 0:
             abort(404)
@@ -56,9 +43,13 @@ def create_app(test_config=None):
 
     @app.route('/questions')
     def retrieve_questions():
-        all_categories = {category.id:category.type for category in Category.query.order_by(Category.id).all()}
+        all_categories = {
+            category.id: category.type for category in Category.query.order_by(Category.id).all()}
         all_questions = Question.query.order_by(Question.id).all()
+
         questions_page = paginate_questions(request, all_questions)
+        current_categories = list(
+            set([question['category'] for question in questions_page]))
 
         if len(questions_page) == 0:
             abort(404)
@@ -68,7 +59,7 @@ def create_app(test_config=None):
             'questions': questions_page,
             'total_questions': len(all_questions),
             'categories': all_categories,
-            'current_category': None
+            'current_category': current_categories
         })
 
     @app.route('/questions/<int:question_id>', methods=['DELETE'])
@@ -126,14 +117,14 @@ def create_app(test_config=None):
             Question.question.ilike(f'%{search_term}%')).all()
 
         if len(search_results) == 0:
-                abort(404)
-                
+            abort(404)
+
         return jsonify({
             'success': True,
             'current_category': None,
             'questions': paginate_questions(request, search_results),
             'total_question': len(search_results)
-            })
+        })
 
     @app.route('/categories/<int:category_id>/questions')
     def retrieve_questions_based_on_category(category_id):
@@ -150,17 +141,17 @@ def create_app(test_config=None):
             'current_category': category_id
         })
 
-
     @app.route('/quizzes', methods=['Post'])
     def start_quizz():
         body = request.get_json()
         category_info = body.get('quiz_category', None)
         previous_questions = body.get('previous_questions', None)
 
-        try:           
+        try:
             categories = [category.id for category in Category.query.all()]
-            if category_info['id'] not in categories:
-                selection = Question.query.order_by(Question.id).filter(~Question.id.in_(previous_questions)).all()
+            if int(category_info['id']) not in categories:
+                selection = Question.query.order_by(Question.id).filter(
+                    ~Question.id.in_(previous_questions)).all()
             else:
                 selection = Question.query.order_by(Question.id).join(Category, Category.id == Question.category).filter(
                     Question.category == category_info['id'], ~Question.id.in_(previous_questions)).all()
